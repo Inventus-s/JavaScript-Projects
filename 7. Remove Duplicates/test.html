@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart</title>
+  <style>
+    /* CSS styles for the shopping cart items */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 5px;
+      background-color: #f0f0f0;
+    }
+    .cart-item-name {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+    .cart-item-remove {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Shopping Cart</h1>
+  <ul id="cart">
+    <li class="cart-item">
+      <span class="cart-item-name">Shirt</span>
+      <span class="cart-item-remove">&times;</span>
+    </li>
+    <li class="cart-item">
+      <span class="cart-item-name">Pants</span>
+      <span class="cart-item-remove">&times;</span>
+    </li>
+    <li class="cart-item">
+      <span class="cart-item-name">Shirt</span>
+      <span class="cart-item-remove">&times;</span>
+    </li>
+    <li class="cart-item">
+      <span class="cart-item-name">Socks</span>
+      <span class="cart-item-remove">&times;</span>
+    </li>
+    <li class="cart-item">
+      <span class="cart-item-name">Pants</span>
+      <span class="cart-item-remove">&times;</span>
+    </li>
+  </ul>
+
+  <script>
+    function removeDuplicates() {
+      // Get all the cart items
+      const cartItems = document.querySelectorAll('.cart-item-name');
+      const uniqueItems = [];
+
+      // Loop through each item and add it to the uniqueItems array if it's not already there
+      cartItems.forEach(item => {
+        if (!uniqueItems.includes(item.textContent)) {
+          uniqueItems.push(item.textContent);
+        }
+      });
+
+      // Remove all the cart items
+      const cart = document.getElementById('cart');
+      while (cart.firstChild) {
+        cart.removeChild(cart.firstChild);
+      }
+
+      // Add the unique items back to the cart
+      uniqueItems.forEach(item => {
+        const li = document.createElement('li');
+        li.classList.add('cart-item');
+        const spanName = document.createElement('span');
+        spanName.classList.add('cart-item-name');
+        spanName.textContent = item;
+        const spanRemove = document.createElement('span');
+        spanRemove.classList.add('cart-item-remove');
+        spanRemove.textContent = '\u00D7';
+        li.appendChild(spanName);
+        li.appendChild(spanRemove);
+        cart.appendChild(li);
+      });
+    }
+
+    // Call the removeDuplicates function when the page loads
+    window.onload = removeDuplicates;
+  </script>
+</body>
+</html>
